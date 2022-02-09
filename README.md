@@ -1,0 +1,4 @@
+# Stringee TypeScript definition types
+
+
+

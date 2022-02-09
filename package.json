@@ -1,0 +1,14 @@
+{
+  "name": "stringee-types",
+  "version": "0.1.0",
+  "description": "Stringee Typescript definitions",
+  "keywords": [
+    "stringee",
+    "typescript",
+    "types"
+  ],
+  "types": "index.d.ts",
+  "scripts": {},
+  "author": "Toan Nguyen <hgiasac@gmail.com>",
+  "license": "MIT"
+}
