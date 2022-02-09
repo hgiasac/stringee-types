@@ -9,7 +9,6 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-      "index.d.ts",
-      "stringee-chat.d.ts"
+      "index.d.ts"
   ]
 }
