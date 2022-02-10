@@ -1,5 +1,3 @@
-type Void = void | Promise<void>;
-
 type StringeeVideoDimension =
   | {
       min: string;
@@ -98,7 +96,7 @@ interface StringeeLocalTrack {
   detachAndRemove(): void;
   mute(muted: boolean): void;
   routeAudioToSpeaker(selectedSpeakerId: string): void;
-  on(evName: "ready", callback: () => Void): void;
+  on(evName: "ready", callback: () => unknown): void;
 }
 
 interface StringeeRemoteTrack {
@@ -146,24 +144,24 @@ interface StringeeConferenceRoom {
 
   on(
     evName: "joinroom",
-    callback: (event: StringeeRoomJoinEventData) => Void
+    callback: (event: StringeeRoomJoinEventData) => unknown
   ): void;
   on(
     evName: "leaveroom",
-    callback: (event: StringeeRoomLeaveEventData) => Void
+    callback: (event: StringeeRoomLeaveEventData) => unknown
   ): void;
-  on(evName: "message", callback: (event: any) => Void): void;
+  on(evName: "message", callback: (event: any) => unknown): void;
   on(
     evName: "addtrack",
-    callback: (event: StringeeRoomAddTrackEventData) => Void
+    callback: (event: StringeeRoomAddTrackEventData) => unknown
   ): void;
   on(
     evName: "removetrack",
-    callback: (event: StringeeRoomRemoveTrackEventData) => Void
+    callback: (event: StringeeRoomRemoveTrackEventData) => unknown
   ): void;
   on(
     evName: "trackmediachange",
-    callback: (event: RoomTrackMediaChangeEventData) => Void
+    callback: (event: RoomTrackMediaChangeEventData) => unknown
   ): void;
 }
 
@@ -224,18 +222,21 @@ declare class StringeeClient {
 
   connect(access_token: string): void;
 
-  on(evName: "connect", callback: () => Void);
+  on(evName: "connect", callback: () => unknown);
   on(
     evName: "authen",
-    callback: (res: StringeeOnAuthenticatedResponse) => Void
+    callback: (res: StringeeOnAuthenticatedResponse) => unknown
   ): void;
-  on(evName: "disconnect", callback: () => Void): void;
-  on(evName: "requestnewtoken", callback: () => Void): void;
-  on(enName: "otherdeviceauthen", callback: (args: any) => Void): void;
-  on(enName: "chatmessage", callback: (message: StringeeMessage) => Void): void;
+  on(evName: "disconnect", callback: () => unknown): void;
+  on(evName: "requestnewtoken", callback: () => unknown): void;
+  on(enName: "otherdeviceauthen", callback: (args: any) => unknown): void;
+  on(
+    enName: "chatmessage",
+    callback: (message: StringeeMessage) => unknown
+  ): void;
   on(
     enName: "chatmessagestate",
-    callback: (message: StringeeChatMessageState) => Void
+    callback: (message: StringeeChatMessageState) => unknown
   ): void;
 
   disconnect(): void;
@@ -248,7 +249,7 @@ declare class StringeeClient {
   sendCustomMessage(
     userId: string,
     message: Record<string, unknown>,
-    callback: (message: string) => Void
+    callback: (message: string) => unknown
   );
   setThisClientIsActive(isActive: boolean): void;
 }
@@ -322,14 +323,14 @@ declare class StringeeVideoTrack {
   };
 
   init(): Promise<StringeeVideoTrack>;
-  on(evName: "ready", callback: (deviceTypes: string[]) => Void): void;
+  on(evName: "ready", callback: (deviceTypes: string[]) => unknown): void;
   on(
     evName: "mediastate",
-    callback: (mediaState: StringeeMediaState) => Void
+    callback: (mediaState: StringeeMediaState) => unknown
   ): void;
   on(
     evName: "gotDevicesInfo",
-    callback: (data: StringeeDevicesInfo) => Void
+    callback: (data: StringeeDevicesInfo) => unknown
   ): void;
   on(
     evName: "changedevice",
@@ -337,9 +338,9 @@ declare class StringeeVideoTrack {
       type: "video" | "audio" | "both";
       newDeiceId: string;
       newOptions: StringeePublishOptions;
-    }) => Void
+    }) => unknown
   ): void;
-  on(evName: "trackended", callback: (...args: any[]) => Void);
+  on(evName: "trackended", callback: (...args: any[]) => unknown);
   attach(): HTMLVideoElement;
   detach(): HTMLVideoElement[];
 
@@ -357,9 +358,9 @@ declare class StringeeVideoTrack {
   enableLocalVideo(e: unknown): Promise<unknown>;
   getBW(): Promise<unknown>;
   getMediaStream(): any;
-  getStats(callback: (stats: unknown) => Void): any;
+  getStats(callback: (stats: unknown) => unknown): any;
   mute(muted: boolean): Promise<unknown>;
-  onCandidateFromServer(callback: (...args: unknown[]) => Void): void;
+  onCandidateFromServer(callback: (...args: unknown[]) => unknown): void;
   onRemoteStream(e, t): void;
   onSdpFromServer(e): void;
   processSendSdpCandidate(): void;
@@ -455,7 +456,7 @@ declare module "stringee-chat-js-sdk" {
     status: boolean,
     code: number,
     message: string
-  ) => Void;
+  ) => unknown;
 
   class StringeeClient {
     accessToken: string;
@@ -481,21 +482,21 @@ declare module "stringee-chat-js-sdk" {
 
     connect(access_token: string): void;
 
-    on(evName: "connect", callback: () => Void);
+    on(evName: "connect", callback: () => unknown);
     on(
       evName: "authen",
-      callback: (res: StringeeOnAuthenticatedResponse) => Void
+      callback: (res: StringeeOnAuthenticatedResponse) => unknown
     ): void;
-    on(evName: "disconnect", callback: () => Void): void;
-    on(evName: "requestnewtoken", callback: () => Void): void;
-    on(enName: "otherdeviceauthen", callback: (args: any) => Void): void;
+    on(evName: "disconnect", callback: () => unknown): void;
+    on(evName: "requestnewtoken", callback: () => unknown): void;
+    on(enName: "otherdeviceauthen", callback: (args: any) => unknown): void;
     on(
       enName: "chatmessage",
-      callback: (message: StringeeMessage) => Void
+      callback: (message: StringeeMessage) => unknown
     ): void;
     on(
       enName: "chatmessagestate",
-      callback: (message: StringeeChatMessageState) => Void
+      callback: (message: StringeeChatMessageState) => unknown
     ): void;
 
     disconnect(): void;
@@ -508,7 +509,7 @@ declare module "stringee-chat-js-sdk" {
     sendCustomMessage(
       userId: string,
       message: Record<string, unknown>,
-      callback: (message: string) => Void
+      callback: (message: string) => unknown
     );
     setThisClientIsActive(isActive: boolean): void;
   }
@@ -594,13 +595,16 @@ declare module "stringee-chat-js-sdk" {
         objectType: 0 | 1; // 0: Conversation,  1: Message
         changeType: 0 | 1 | 2; // 0: Insert, 1: Update, 2: Delete
         objectChanges: StringeeMessage[];
-      }) => Void
+      }) => unknown
     ): void;
-    on(eventName: "pinMsgFromServer", callback: (info: any) => Void): void;
-    on(eventName: "revokeMsgFromServer", callback: (info: any) => Void): void;
+    on(eventName: "pinMsgFromServer", callback: (info: any) => unknown): void;
+    on(
+      eventName: "revokeMsgFromServer",
+      callback: (info: any) => unknown
+    ): void;
     on(
       eventName: "removeParticipantFromServer",
-      callback: (info: any) => Void
+      callback: (info: any) => unknown
     ): void;
 
     sendMessage(
@@ -610,7 +614,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         msg: StringeeMessage
-      ) => Void
+      ) => unknown
     ): void;
     getLastMessages(
       conversationId: string,
@@ -621,7 +625,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         messages: StringeeMessage[]
-      ) => Void
+      ) => unknown
     ): void;
     getMessagesAfter(
       conversationId: string,
@@ -633,7 +637,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         messages: StringeeMessage[]
-      ) => Void
+      ) => unknown
     ): void;
     getMessagesBefore(
       conversationId: string,
@@ -645,7 +649,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         messages: StringeeMessage[]
-      ) => Void
+      ) => unknown
     ): void;
     markConversationAsRead(
       conversationId: string,
@@ -680,7 +684,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         users: StringeeUserInfo[]
-      ) => Void
+      ) => unknown
     ): void;
 
     createConversation(
@@ -691,7 +695,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         conversation: StringeeConversation
-      ) => Void
+      ) => unknown
     ): void;
     updateConversation(
       conversationId: string,
@@ -710,7 +714,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         conversations: StringeeConversation[]
-      ) => Void
+      ) => unknown
     ): void;
     getConversationsAfter(
       dateTime: number,
@@ -721,7 +725,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         conversations: StringeeConversation[]
-      ) => Void
+      ) => unknown
     ): void;
     getConversationsBefore(
       dateTime: number,
@@ -732,7 +736,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         conversations: StringeeConversation[]
-      ) => Void
+      ) => unknown
     ): void;
     addParticipants(
       conversationId: string,
@@ -742,7 +746,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         added: boolean
-      ) => Void
+      ) => unknown
     ): void;
     removeParticipants(
       conversationId: string,
@@ -752,14 +756,14 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         removed: boolean
-      ) => Void
+      ) => unknown
     ): void;
 
     blockInviteToGroup: (
       conversationId: string,
       callback: StringeeChatCallback
     ) => void;
-    blockUser: (userId: string, callback: (status: boolean) => Void) => void;
+    blockUser: (userId: string, callback: (status: boolean) => unknown) => void;
     clearHistory: (
       options: {
         convId: string;
@@ -768,7 +772,7 @@ declare module "stringee-chat-js-sdk" {
     ) => void;
     confirmTransferChat: (
       conversationId: string,
-      callback?: () => Void
+      callback?: () => unknown
     ) => void;
     fireObjectChangeEvent: (e, t, r) => void;
     getChatServices: (conversationId: string) => any;
@@ -779,7 +783,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         conversation: StringeeConversation
-      ) => Void
+      ) => unknown
     ) => void;
     getConversationWithUser: (
       userId: string,
@@ -788,7 +792,7 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         conversation: StringeeConversation
-      ) => Void
+      ) => unknown
     ) => void;
     getUnreadConversationCount: (
       callback: (
@@ -796,11 +800,11 @@ declare module "stringee-chat-js-sdk" {
         code: number,
         message: string,
         count: number
-      ) => Void
+      ) => unknown
     ) => void;
     joinChat: (
       conversationId: string,
-      callback: (conversationId?: string) => Void
+      callback: (conversationId?: string) => unknown
     ) => void;
     keyForMsg: (message: StringeeMessage) => string;
     loadChatMessages: (
@@ -815,7 +819,7 @@ declare module "stringee-chat-js-sdk" {
         limit?: number;
         sort?: string;
         convId: string;
-      }) => Void
+      }) => unknown
     ) => void;
     markMessageSeen: (
       message: Partial<StringeeMessagePayload>,
@@ -825,7 +829,7 @@ declare module "stringee-chat-js-sdk" {
       conversationId: string,
       rating: number,
       comment: string,
-      callback: (conversationId: string) => Void
+      callback: (conversationId: string) => unknown
     ) => unknown;
     sendEmailTranscript: (
       options: {
@@ -833,7 +837,7 @@ declare module "stringee-chat-js-sdk" {
         email: string;
         domain?: string;
       },
-      callback: (conversationId: string) => Void
+      callback: (conversationId: string) => unknown
     ) => unknown;
     sendMessageQueue: () => void;
     trackMsg: (state: StringeeChatMessageState) => void;
@@ -844,7 +848,7 @@ declare module "stringee-chat-js-sdk" {
         customerName: string;
         toUserId: string;
       },
-      callback: (conversationId: string) => Void
+      callback: (conversationId: string) => unknown
     ) => void;
     updateUserInfo: (
       name: string,
@@ -854,7 +858,7 @@ declare module "stringee-chat-js-sdk" {
     ) => void;
     viewChat: (
       conversationId: string,
-      callback: (conversationId: string) => Void
+      callback: (conversationId: string) => unknown
     ) => void;
   }
 }
